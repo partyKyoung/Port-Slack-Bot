@@ -21,7 +21,9 @@ export default function botTalk (message, rtm) {
     '팀장님 같은 개발자가 되고 싶어요',
     '<@' + user + '>님 양애취시네, 일도 안하시고 ㅎㅎ',
     '서버 터졌당',
-    'ㅎㄷ'
+    'ㅎㄷ',
+    '제 최대의 적은 저네요',
+    'ㅎㅎ'
   ];
 
   if (text.includes('?')) {
