@@ -24,6 +24,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
   for (const channel of channels) {
 	  rtm.sendMessage('저 출근했으니까 푸 빌려주세요', channel);
+    console.log('test');
   }
 });
 
