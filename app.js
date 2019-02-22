@@ -4,7 +4,7 @@ import botFood from "./src/bot/food";
 import botWeather from "./src/bot/weather";
 import botTalk from "./src/bot/talk";
 
-const token = "xoxb-130218032870-GBOHuHJZ1GUppjDK5BlSbQGZ";
+const token = "xoxb-370577347025-559000641079-xbeIJ7us5aKDhIgS4LebuzSH";
 var web = new slack.WebClient(token);
 const rtm = new slack.RtmClient(token);
 const CLIENT_EVENTS = slack.CLIENT_EVENTS;
