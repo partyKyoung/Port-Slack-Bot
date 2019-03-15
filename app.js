@@ -1,86 +1,34 @@
-import * as slack from "@slack/client";
+import { RTMClient } from "@slack/client";
 
-import botFood from "./src/bot/food";
-import botWeather from "./src/bot/weather";
-import botTalk from "./src/bot/talk";
+import { slackBotKey } from "./src/lib/keys";
+import findLocaation from "./src/api/location";
 
-const token = "xoxb-370577347025-559000641079-xbeIJ7us5aKDhIgS4LebuzSH";
-var web = new slack.WebClient(token);
-const rtm = new slack.RtmClient(token);
-const CLIENT_EVENTS = slack.CLIENT_EVENTS;
-const RTM_EVENTS = slack.RTM_EVENTS;
+const token = slackBotKey;
 
-let talk = true;
-let channels = [];
-
-rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, rtmStartData => {
-  for (const c of rtmStartData.channels) {
-    if (c.is_member) {
-      channels.push(c.id);
-    }
-  }
-});
-
-rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, () => {
-  for (const channel of channels) {
-    rtm.sendMessage("잘 되가요?", channel);
-  }
-});
-
-rtm.on(RTM_EVENTS.MESSAGE, message => {
-  // const channel = message.channel;
-  const text = message.text;
-  // const user = message.user;
-
-  if (text) {
-    if (text.includes("교수님") || text.includes("상규")) {
-      if (
-        text.includes("아침") ||
-        text.includes("점심") ||
-        text.includes("저녁") ||
-        text.includes("간식") ||
-        text.includes("야식")
-      ) {
-        botFood(message, rtm);
-      } else {
-        botTalk(message, rtm);
-      } // if - port - includes
-    } // if -port
-  } //if -text
-});
-
-// rtm.on(RTM_EVENTS.REACTION_ADDED, reaction => {
-//   const sendUser = reaction.user;
-//   const channel = reaction.item.channel;
-
-//   let getUser = reaction.item_user;
-
-//   rtm.sendMessage(
-//     "<@" +
-//       sendUser +
-//       ">, " +
-//       "<@" +
-//       getUser +
-//       ">님한테 리액션 달지말고 일 좀 해요",
-//     channel
-//   );
-// });
-
-// rtm.on(RTM_EVENTS.REACTION_REMOVED, reaction => {
-//   const sendUser = reaction.user;
-//   const channel = reaction.item.channel;
-
-//   let getUser = reaction.item_user;
-
-//   rtm.sendMessage(
-//     "<@" +
-//       sendUser +
-//       ">님, " +
-//       "<@" +
-//       getUser +
-//       ">님한테 왜 리액션 줬다 뺐어요; 양애취시네 완전;;",
-//     channel
-//   );
-// });
+const rtm = new RTMClient(token);
 
 rtm.start();
+
+rtm.on("message", async message => {
+  const { text } = message;
+
+  if (text.includes("날씨 명령어")) {
+    rtm.sendMessage(
+      `
+      미세먼지 [지역]
+      날씨 [지역]
+    `,
+      message.channel
+    );
+  }
+
+  try {
+    if (text.includes("서울")) {
+      const response = await findLocaation("서울");
+
+      console.log(123, response);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
