@@ -4,7 +4,7 @@
   "description": "Port 슬랙봇",
   "main": "index.js",
   "dependencies": {
-    "@slack/client": "^3.8.1",
+    "@slack/client": "^4.11.0",
     "request": "^2.79.0"
   },
   "devDependencies": {
