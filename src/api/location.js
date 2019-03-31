@@ -1,12 +1,12 @@
 import request from "request";
 
-import { kakaoRestApiKey } from "./src/lib/keys";
+import { kakaoRestAPIKey } from "../../src/lib/keys";
 
 const api = "https://dapi.kakao.com";
 const option = {
   url: "",
   headers: {
-    Authorization: `KakaoAK ${kakaoRestApiKey}`
+    Authorization: `KakaoAK ${kakaoRestAPIKey}`
   }
 };
 
